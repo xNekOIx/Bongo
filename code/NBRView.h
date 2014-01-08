@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface NBRView : UIView
 
-- (void)startRunning;
-- (void)stopRunning;
+@property (strong, nonatomic) AVCaptureVideoPreviewLayer* layer;
 
 @end
