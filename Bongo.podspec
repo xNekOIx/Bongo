@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license      = 'MIT'
   s.authors      = { 'Kostya Bychkov' => 'c.bychkov@gmail.com' }
   s.source       = { :git => 'https://github.com/xNekOIx/Bongo.git', :tag => '0.0.1' }
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '6.0'
   s.source_files = 'code'
   s.public_header_files = 'code/BNGViewController.h'
   s.requires_arc = true
