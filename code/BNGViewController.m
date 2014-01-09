@@ -62,7 +62,7 @@
 
 - (void)setupLayerSession
 {
-    NSAssert(UIDevice.currentDevice.systemVersion.floatValue < 7.0, @"Works only for iOS 7 or later");
+    NSAssert(UIDevice.currentDevice.systemVersion.floatValue >= 7.0, @"Works only for iOS 7 or later");
     
     NSArray* devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
     NSAssert(devices.count > 0, @"There are no device that can capture video input installed on this device");
