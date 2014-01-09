@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22A84807187EB68E00BDDD63 /* BNGTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A84806187EB68E00BDDD63 /* BNGTestViewController.m */; };
 		22ABDF1A187D51C800EAE220 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22ABDF19187D51C800EAE220 /* Foundation.framework */; };
 		22ABDF1C187D51C800EAE220 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22ABDF1B187D51C800EAE220 /* CoreGraphics.framework */; };
 		22ABDF1E187D51C800EAE220 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22ABDF1D187D51C800EAE220 /* UIKit.framework */; };
@@ -19,10 +20,10 @@
 		22ABDF35187D51C800EAE220 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22ABDF1D187D51C800EAE220 /* UIKit.framework */; };
 		22ABDF3D187D51C800EAE220 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22ABDF3B187D51C800EAE220 /* InfoPlist.strings */; };
 		22ABDF3F187D51C800EAE220 /* NativeBarcodeRecognizerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ABDF3E187D51C800EAE220 /* NativeBarcodeRecognizerTests.m */; };
-		22ABDF4B187D52D400EAE220 /* NBRView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ABDF4A187D52D400EAE220 /* NBRView.m */; };
-		22ABDF4C187D52D400EAE220 /* NBRView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ABDF4A187D52D400EAE220 /* NBRView.m */; };
-		22ABDF52187D93F100EAE220 /* NBRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ABDF51187D93F100EAE220 /* NBRViewController.m */; };
-		22ABDF53187D93F100EAE220 /* NBRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ABDF51187D93F100EAE220 /* NBRViewController.m */; };
+		22ABDF4B187D52D400EAE220 /* BNGView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ABDF4A187D52D400EAE220 /* BNGView.m */; };
+		22ABDF4C187D52D400EAE220 /* BNGView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ABDF4A187D52D400EAE220 /* BNGView.m */; };
+		22ABDF52187D93F100EAE220 /* BNGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ABDF51187D93F100EAE220 /* BNGViewController.m */; };
+		22ABDF53187D93F100EAE220 /* BNGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ABDF51187D93F100EAE220 /* BNGViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22A84805187EB68E00BDDD63 /* BNGTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNGTestViewController.h; sourceTree = "<group>"; };
+		22A84806187EB68E00BDDD63 /* BNGTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNGTestViewController.m; sourceTree = "<group>"; };
 		22ABDF16187D51C800EAE220 /* NativeBarcodeRecognizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeBarcodeRecognizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22ABDF19187D51C800EAE220 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		22ABDF1B187D51C800EAE220 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -52,10 +55,10 @@
 		22ABDF3A187D51C800EAE220 /* NativeBarcodeRecognizerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NativeBarcodeRecognizerTests-Info.plist"; sourceTree = "<group>"; };
 		22ABDF3C187D51C800EAE220 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		22ABDF3E187D51C800EAE220 /* NativeBarcodeRecognizerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeBarcodeRecognizerTests.m; sourceTree = "<group>"; };
-		22ABDF49187D52D400EAE220 /* NBRView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBRView.h; sourceTree = "<group>"; };
-		22ABDF4A187D52D400EAE220 /* NBRView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBRView.m; sourceTree = "<group>"; };
-		22ABDF50187D93F100EAE220 /* NBRViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBRViewController.h; sourceTree = "<group>"; };
-		22ABDF51187D93F100EAE220 /* NBRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBRViewController.m; sourceTree = "<group>"; };
+		22ABDF49187D52D400EAE220 /* BNGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNGView.h; sourceTree = "<group>"; };
+		22ABDF4A187D52D400EAE220 /* BNGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNGView.m; sourceTree = "<group>"; };
+		22ABDF50187D93F100EAE220 /* BNGViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BNGViewController.h; sourceTree = "<group>"; };
+		22ABDF51187D93F100EAE220 /* BNGViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BNGViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,8 @@
 			children = (
 				22ABDF28187D51C800EAE220 /* NBRAppDelegate.h */,
 				22ABDF29187D51C800EAE220 /* NBRAppDelegate.m */,
+				22A84805187EB68E00BDDD63 /* BNGTestViewController.h */,
+				22A84806187EB68E00BDDD63 /* BNGTestViewController.m */,
 				22ABDF2B187D51C800EAE220 /* Images.xcassets */,
 				22ABDF20187D51C800EAE220 /* Supporting Files */,
 			);
@@ -156,10 +161,10 @@
 		22ABDF48187D51E000EAE220 /* code */ = {
 			isa = PBXGroup;
 			children = (
-				22ABDF49187D52D400EAE220 /* NBRView.h */,
-				22ABDF4A187D52D400EAE220 /* NBRView.m */,
-				22ABDF50187D93F100EAE220 /* NBRViewController.h */,
-				22ABDF51187D93F100EAE220 /* NBRViewController.m */,
+				22ABDF49187D52D400EAE220 /* BNGView.h */,
+				22ABDF4A187D52D400EAE220 /* BNGView.m */,
+				22ABDF50187D93F100EAE220 /* BNGViewController.h */,
+				22ABDF51187D93F100EAE220 /* BNGViewController.m */,
 			);
 			name = code;
 			path = ../code;
@@ -209,7 +214,7 @@
 		22ABDF0E187D51C800EAE220 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = NBR;
+				CLASSPREFIX = BNG;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = NekOI;
 				TargetAttributes = {
@@ -261,10 +266,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22ABDF4B187D52D400EAE220 /* NBRView.m in Sources */,
+				22A84807187EB68E00BDDD63 /* BNGTestViewController.m in Sources */,
+				22ABDF4B187D52D400EAE220 /* BNGView.m in Sources */,
 				22ABDF26187D51C800EAE220 /* main.m in Sources */,
 				22ABDF2A187D51C800EAE220 /* NBRAppDelegate.m in Sources */,
-				22ABDF52187D93F100EAE220 /* NBRViewController.m in Sources */,
+				22ABDF52187D93F100EAE220 /* BNGViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,9 +278,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22ABDF53187D93F100EAE220 /* NBRViewController.m in Sources */,
+				22ABDF53187D93F100EAE220 /* BNGViewController.m in Sources */,
 				22ABDF3F187D51C800EAE220 /* NativeBarcodeRecognizerTests.m in Sources */,
-				22ABDF4C187D52D400EAE220 /* NBRView.m in Sources */,
+				22ABDF4C187D52D400EAE220 /* BNGView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

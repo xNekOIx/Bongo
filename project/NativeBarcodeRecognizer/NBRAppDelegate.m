@@ -7,7 +7,7 @@
 //
 
 #import "NBRAppDelegate.h"
-#import "NBRViewController.h"
+#import "BNGTestViewController.h"
 
 @implementation NBRAppDelegate
 
@@ -16,7 +16,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    NBRViewController* viewController = [NBRViewController new];
+    BNGTestViewController* viewController = [BNGTestViewController new];
     self.window.rootViewController = viewController;
     
     self.window.backgroundColor = [UIColor whiteColor];

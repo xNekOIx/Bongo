@@ -1,5 +1,5 @@
 //
-//  NBRViewController.h
+//  BNGView.h
 //  NativeBarcodeRecognizer
 //
 //  Created by Kostya Bychkov on 1/8/14.
@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface NBRViewController : UIViewController
+@interface BNGView : UIView
+
+@property (strong, nonatomic) AVCaptureSession* session;
 
 @end
