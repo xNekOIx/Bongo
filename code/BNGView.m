@@ -21,6 +21,16 @@
     return [AVCaptureVideoPreviewLayer class];
 }
 
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        self.layer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    }
+    return self;
+}
+
 - (void)setSession:(AVCaptureSession *)session
 {
     if (session == self.layer.session) return;
