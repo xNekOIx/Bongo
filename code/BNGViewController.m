@@ -14,6 +14,7 @@
 @property (strong) BNGView* view;
 @property (strong) AVCaptureMetadataOutput* output;
 @property (strong) AVCaptureSession* session;
+@property (readwrite) NSArray* lastReadedObjects;
 
 @end
 
@@ -150,7 +151,7 @@
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
-    _lastReadedObjects = [metadataObjects copy];
+    self.lastReadedObjects = [metadataObjects copy];
 }
 
 @end
