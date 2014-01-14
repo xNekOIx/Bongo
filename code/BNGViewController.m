@@ -15,6 +15,7 @@
 @property (strong) AVCaptureMetadataOutput* output;
 @property (strong) AVCaptureSession* session;
 @property (readwrite) NSArray* lastReadedObjects;
+@property (strong) dispatch_queue_t dispatchQueue;
 
 @end
 
@@ -63,48 +64,64 @@
 
 - (void)setupLayerSession
 {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.isInitializing = YES;
+    });
+    
+    self.dispatchQueue = dispatch_queue_create(NULL, DISPATCH_QUEUE_SERIAL);
+    
     NSAssert(UIDevice.currentDevice.systemVersion.floatValue >= 7.0, @"Works only for iOS 7 or later");
-    
-    NSArray* devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-    NSAssert(devices.count > 0, @"There are no device that can capture video input installed on this device");
-    
-    AVCaptureDevice* device;
-    
-    for (AVCaptureDevice* cameraDevice in devices)
-    {
-        if (cameraDevice.position == AVCaptureDevicePositionBack)
+    dispatch_async(self.dispatchQueue, ^{
+        
+        NSArray* devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+        NSAssert(devices.count > 0, @"There are no device that can capture video input installed on this device");
+        
+        AVCaptureSession* session = [AVCaptureSession new];
+        _session = session;
+        
+        AVCaptureMetadataOutput* output = [AVCaptureMetadataOutput new];
+        [output setMetadataObjectsDelegate:self queue:self.dispatchQueue];
+        output.metadataObjectTypes = nil;
+        _output = output;
+        
+        AVCaptureDevice* device;
+        
+        for (AVCaptureDevice* cameraDevice in devices)
         {
-            device = cameraDevice;
-            if ([device hasTorch] && [device isTorchModeSupported:AVCaptureTorchModeAuto])
+            if (cameraDevice.position == AVCaptureDevicePositionBack)
             {
-                NSError *error = nil;
-                if ([device lockForConfiguration:&error])
+                device = cameraDevice;
+                if ([device hasTorch] && [device isTorchModeSupported:AVCaptureTorchModeAuto])
                 {
-                    device.torchMode = AVCaptureTorchModeAuto;
-                    [device unlockForConfiguration];
+                    NSError *error = nil;
+                    if ([device lockForConfiguration:&error])
+                    {
+                        device.torchMode = AVCaptureTorchModeAuto;
+                        [device unlockForConfiguration];
+                    }
+                    NSAssert(error == nil, @"lock for configuration failed with error: %@", error);
                 }
-                NSAssert(error == nil, @"lock for configuration failed with error: %@", error);
+                break;
             }
-            break;
         }
-    }
-    NSAssert(device != nil, @"There is no back camera available on this device");
-    
-    NSError* inputError;
-    AVCaptureDeviceInput* input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&inputError];
-    NSAssert(inputError == nil, @"An error occurred while try get AVCaptureDeviceInput: %@", inputError);
-    
-    AVCaptureSession* session = [AVCaptureSession new];
-    NSAssert([session canAddInput:input], @"Can't add camera device input to session");
-    _session = session;
-    [session addInput:input];
-    
-    AVCaptureMetadataOutput* output = [AVCaptureMetadataOutput new];
-    [output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
-    output.metadataObjectTypes = nil;
-    NSAssert([session canAddOutput:output], @"Can't add barcode recognition media output");
-    _output = output;
-    [session addOutput:output];
+        NSAssert(device != nil, @"There is no back camera available on this device");
+        
+        NSError* inputError;
+        AVCaptureDeviceInput* input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&inputError];
+        NSAssert(inputError == nil, @"An error occurred while try get AVCaptureDeviceInput: %@", inputError);
+        
+        [self.session beginConfiguration];
+        NSAssert([session canAddInput:input], @"Can't add camera device input to session");
+        [session addInput:input];
+        
+        NSAssert([session canAddOutput:output], @"Can't add barcode recognition media output");
+        
+        [session addOutput:output];
+        [self.session commitConfiguration];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.isInitializing = NO;
+        });
+    });
 }
 
 - (void)loadView
@@ -116,43 +133,55 @@
 {
     [super viewDidLoad];
     
-    NSParameterAssert(self.session != nil);
-    self.view.session = self.session;
+    dispatch_async(self.dispatchQueue, ^{
+        NSParameterAssert(self.session != nil);
+        self.view.session = self.session;
+    });
 }
 
 - (void)startScanning
 {
-    [self.view.session startRunning];
+    dispatch_async(self.dispatchQueue, ^{
+        [self.session startRunning];
+    });
 }
 
 - (void)stopScanning
 {
-    [self.view.session stopRunning];
+    dispatch_async(self.dispatchQueue, ^{
+        [self.session stopRunning];
+    });
 }
 
 - (void)setAvailableObjectTypes:(NSArray *)availableObjectTypes
 {
-    NSSet* availableOutputObjectTypes = [NSSet setWithArray:self.output.availableMetadataObjectTypes];
-    NSSet* filterObjectTypes = [NSSet setWithArray:availableObjectTypes];
-    NSAssert([filterObjectTypes isSubsetOfSet:availableOutputObjectTypes], @"There are object types that can't be handled");
-    
-    if ([availableObjectTypes isEqualToArray:self.output.metadataObjectTypes]) return;
-    
-    [self.session beginConfiguration];
-    self.output.metadataObjectTypes = availableObjectTypes;
-    [self.session commitConfiguration];
+    dispatch_async(self.dispatchQueue, ^{
+        NSSet* availableOutputObjectTypes = [NSSet setWithArray:self.output.availableMetadataObjectTypes];
+        NSSet* filterObjectTypes = [NSSet setWithArray:availableObjectTypes];
+        NSAssert([filterObjectTypes isSubsetOfSet:availableOutputObjectTypes], @"There are object types that can't be handled");
+        
+        if ([availableObjectTypes isEqualToArray:self.output.metadataObjectTypes]) return;
+        
+        [self.session beginConfiguration];
+        @synchronized(self.output) {
+            self.output.metadataObjectTypes = availableObjectTypes;
+        }
+        [self.session commitConfiguration];
+    });
 }
 
 - (NSArray *)availableObjectTypes
 {
-    return self.output.availableMetadataObjectTypes;
+    return self.output.metadataObjectTypes;
 }
 
 #pragma mark - AVCaptureMetadataOutputObjectsDelegate
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
 {
-    self.lastReadedObjects = [metadataObjects copy];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.lastReadedObjects = [metadataObjects copy];
+    });
 }
 
 @end

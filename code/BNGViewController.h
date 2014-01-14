@@ -18,6 +18,7 @@
 /// types are NSString keys available for AVMetadataMachineReadableCodeObject
 /// e.g. AVMetadataObjectTypeUPCECode
 @property (copy, nonatomic) NSArray* availableObjectTypes;
+@property (assign) BOOL isInitializing;
 
 + (BOOL)canRecognizeBarcodes;
 - (void)startScanning;
