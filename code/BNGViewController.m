@@ -135,7 +135,9 @@
     
     dispatch_async(self.dispatchQueue, ^{
         NSParameterAssert(self.session != nil);
-        self.view.session = self.session;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            self.view.session = self.session;
+        });
     });
 }
 
