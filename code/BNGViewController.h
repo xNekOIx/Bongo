@@ -17,10 +17,12 @@
 /// An array of readable code types that should be recognized by barcode scanner
 /// types are NSString keys available for AVMetadataMachineReadableCodeObject
 /// e.g. AVMetadataObjectTypeUPCECode
-@property (copy, nonatomic) NSArray* availableObjectTypes;
+@property (readonly) NSArray* availableObjectTypes;
 @property (assign) BOOL isInitializing;
 
 + (BOOL)canRecognizeBarcodes;
+- (instancetype)initWithAvailableObjects:(NSArray*)availableObjects;
+
 - (void)startScanning;
 - (void)stopScanning;
 

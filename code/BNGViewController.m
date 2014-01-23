@@ -57,12 +57,21 @@
 {
     self = [super init];
     if (self) {
-        [self setupLayerSession];
+        [self setupLayerSessionWithAvailableObjects:nil];
     }
     return self;
 }
 
-- (void)setupLayerSession
+- (instancetype)initWithAvailableObjects:(NSArray*)availableObjects
+{
+    self = [super init];
+    if (self) {
+        [self setupLayerSessionWithAvailableObjects:availableObjects];
+    }
+    return self;
+}
+
+- (void)setupLayerSessionWithAvailableObjects:(NSArray*)availableObjectTypes
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.isInitializing = YES;
@@ -117,8 +126,15 @@
         NSAssert([session canAddOutput:output], @"Can't add barcode recognition media output");
         
         [session addOutput:output];
+        
+        NSSet* availableOutputObjectTypes = [NSSet setWithArray:output.availableMetadataObjectTypes];
+        NSSet* filterObjectTypes = [NSSet setWithArray:availableObjectTypes];
+        NSAssert([filterObjectTypes isSubsetOfSet:availableOutputObjectTypes], @"There are object types that can't be handled");
+        
+        output.metadataObjectTypes = availableObjectTypes;
         [self.session commitConfiguration];
-        dispatch_async(dispatch_get_main_queue(), ^{
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
             self.isInitializing = NO;
         });
     });
@@ -152,23 +168,6 @@
 {
     dispatch_async(self.dispatchQueue, ^{
         [self.session stopRunning];
-    });
-}
-
-- (void)setAvailableObjectTypes:(NSArray *)availableObjectTypes
-{
-    dispatch_async(self.dispatchQueue, ^{
-        NSSet* availableOutputObjectTypes = [NSSet setWithArray:self.output.availableMetadataObjectTypes];
-        NSSet* filterObjectTypes = [NSSet setWithArray:availableObjectTypes];
-        NSAssert([filterObjectTypes isSubsetOfSet:availableOutputObjectTypes], @"There are object types that can't be handled");
-        
-        if ([availableObjectTypes isEqualToArray:self.output.metadataObjectTypes]) return;
-        
-        [self.session beginConfiguration];
-        @synchronized(self.output) {
-            self.output.metadataObjectTypes = availableObjectTypes;
-        }
-        [self.session commitConfiguration];
     });
 }
 
